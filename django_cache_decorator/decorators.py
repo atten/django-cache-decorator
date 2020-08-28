@@ -2,6 +2,7 @@ import typing as t
 from functools import wraps
 
 from django.core.cache import cache
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.db.models import Model
 
 from .utils import attrs_to_dict
@@ -40,7 +41,7 @@ def build_func_cache_key(func_name, *args, **kwargs):
 
 
 def cached_method(field_names: t.List[str] = None,
-                  timeout: t.Optional[int] = None,
+                  timeout: t.Optional[int] = DEFAULT_TIMEOUT,
                   on_cache_hit: t.Optional[t.Callable[[t.Any], t.Any]] = None):
     """
     @cached_method(['id', 'field1', 'field2'])
